@@ -16,6 +16,7 @@ import os
 from dotenv import load_dotenv
 
 
+
 '''
 Make sure the required packages are installed: 
 Open the Terminal in PyCharm (bottom left). 
@@ -274,9 +275,9 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    return render_template("contact.html", current_user=current_user)
+# @app.route("/contact", methods=["GET", "POST"])
+# def contact():
+#     return render_template("contact.html", current_user=current_user)
 
 # Optional: You can include the email sending code from Day 60:
 # DON'T put your email and password here directly! The code will be visible when you upload to Github.
@@ -295,6 +296,7 @@ def contacts():
         data = request.form
         send_email(data["name"], data["email"], data["phone"], data["message"])
         return render_template("contact.html", msg_sent=True)
+        # return f"<h1>{request.form['name']}{request.form['phone']}\n{request.form['email']}\n{request.form['message']}\n</h1>"
     return render_template("contact.html", msg_sent=False)
 
 
@@ -304,67 +306,10 @@ def send_email(name, email, phone, message):
         connection.starttls()
         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
         connection.sendmail(from_addr=  MAIL_ADDRESS,to_addrs= TO_MAIL_ADDRESS, msg=email_message)
+        print("Sent\n"*5)
 
 
 
-# @app.route('/contact',methods=['GET',"POST"])
-# def contacts():
-#     if request.method=="POST":
-#         with smtplib.SMTP("smtp.gmail.com") as c:
-#             c.starttls()
-#             c.login(user=MAIL_KEY,password=MAIL_APP_PW)
-#             c.sendmail(from_addr=MAIL_KEY,
-#             to_addrs=TO_MAIL_ADDRESS,
-#             msg=f"Subject:Client's Message from Website\n\n{request.form['name']}\n{request.form['phone']}\n{request.form['email']}\n{request.form['message']}"
-#             )
-#             print("sent!!")
-#         return render_template("contact.html",msg_sent=True)
-#     return render_template("contact.html",msg_sent=False)
-
-
-
-# @app.route("/contact", methods=["GET", "POST"])
-# def contacts():
-#     if request.method == "POST":
-#         with smtplib.SMTP("smtp.gmail.com") as connection:
-#             connection.starttls()
-#             connection.login(user=MAIL_ADDRESS,password=MAIL_APP_PW)
-#             connection.sendmail(from_addr=MAIL_ADDRESS,
-#             to_addrs=TO_MAIL_ADDRESS,
-#             msg=f"Subject:Client's Message from Website\n\n{request.form['name']}\n{request.form['phone']}\n{request.form['email']}\n{request.form['message']}"
-#             )
-#             print("SENT\n"*5)
-#         return render_template("contact.html",msg_sent=True)
-        
-
-#     return render_template("contact.html",msg_sent=False)
-        
-
-# @app.route('/contact',methods=['GET',"POST"])
-# def contacts():
-#     if request.method=="POST":
-#         my="lingadumys@gmail.com"
-#         password="pncjzrkuohcllezh"
-#         to_onwer_email="lingesh.91918@gmail.com"
-#         with smtplib.SMTP("smtp.gmail.com") as c:
-#             c.starttls()
-#             c.login(user=my,password=password)
-#             c.sendmail(from_addr=my,
-#             to_addrs=to_onwer_email,
-#             msg=f"Subject:Client's Message from Website\n\n{request.form['name']}\n{request.form['phone']}\n{request.form['email']}\n{request.form['message']}"
-#             )
-#             print("sent!!")
-#         return render_template("contact.html",msg_sent=True)
-#         #  f"<h1>{request.form['name']}{request.form['phone']}\n{request.form['email']}\n{request.form['message']}\n</h1>"
-
-#     return render_template("contact.html",msg_sent=False)
-
-# def send_email(name, email, phone, message):
-#     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
-#     with smtplib.SMTP("smtp.gmail.com") as connection:
-#         connection.starttls()
-#         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
-#         connection.sendmail(from_addr=  MAIL_ADDRESS,to_addrs= TO_MAIL_ADDRESS, msg=email_message)
 
 
 if __name__ == "__main__":
