@@ -262,7 +262,7 @@ def edit_post(post_id):
     return render_template("make-post.html", form=edit_form, is_edit=True, current_user=current_user)
 
 
-# Use a decorator so only an admin user can delete a post
+# Use a decorator so only an admin user can delete a postoo
 @app.route("/delete/<int:post_id>")
 @admin_only
 def delete_post(post_id):
@@ -270,7 +270,6 @@ def delete_post(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('get_all_posts'))
-
 
 @app.route("/about")
 def about():
